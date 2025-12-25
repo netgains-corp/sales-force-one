@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Force One | Florian M.</title>
+    <title>Sales Force One | Cockpit</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,8 +93,8 @@
                 <button class="glass-btn w-10 h-10 rounded-full flex items-center justify-center text-white/80 hover:text-white"><i class="fa-regular fa-bell"></i></button>
                 <div class="flex items-center gap-3 pl-4 border-l border-white/10">
                     <div class="text-right hidden sm:block">
-                        <div class="text-xs font-bold text-white uppercase tracking-tighter">Florian M.</div>
-                        <div class="text-[9px] text-teal-400 font-bold uppercase tracking-widest">System Online</div>
+                        <div id="user-name" class="text-xs font-bold text-white uppercase tracking-tighter">Initialisiere...</div>
+                        <div id="status-text" class="text-[9px] text-teal-400 font-bold uppercase tracking-widest">Warte auf URL...</div>
                     </div>
                     <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center border border-white/10 cursor-pointer hover:border-teal-500/50 transition-all shadow-2xl group overflow-hidden">
                         <i class="fa-solid fa-user-tie text-slate-500 group-hover:text-teal-400 transition-colors"></i>
@@ -126,13 +126,13 @@
                 <div class="w-full md:w-auto min-w-[300px] glass-panel rounded-3xl p-8 bg-black/60 border-white/5 shadow-2xl">
                     <div class="flex justify-between items-center mb-6">
                         <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest">Q4 Meilenstein</span>
-                        <span class="text-teal-400 font-black text-xs px-2 py-1 rounded bg-teal-500/10">+12.4%</span>
+                        <span class="text-teal-400 font-black text-xs px-2 py-1 rounded bg-teal-500/10">Active</span>
                     </div>
                     <div class="flex items-baseline gap-1 text-5xl font-black text-white mb-4 tracking-tighter"><span id="kpi-target" class="glow-number">0</span><span class="text-xl text-teal-500">%</span></div>
                     <div class="w-full h-4 bg-black/90 rounded-full overflow-hidden border border-white/5 relative mb-4 p-[1px]">
                         <div id="target-progress" class="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full progress-bar shadow-[0_0_20px_rgba(45,212,191,0.5)]" style="width: 0%;"></div>
                     </div>
-                    <div class="flex justify-between text-[10px] text-slate-600 font-bold tracking-widest uppercase"><span>Aktuell: €820k</span><span>Ziel: €1.0M</span></div>
+                    <div class="flex justify-between text-[10px] text-slate-600 font-bold tracking-widest uppercase"><span id="target-current">Aktuell: €0</span><span id="target-total">Ziel: €0</span></div>
                 </div>
             </div>
             <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-teal-500/5 rounded-full blur-[120px] pointer-events-none"></div>
@@ -207,25 +207,20 @@
                 <h2 class="text-xl font-black text-white uppercase tracking-widest mb-8 flex items-center gap-4"><i class="fa-solid fa-list-check text-rose-400"></i> Fokus-Aktivitäten</h2>
                 <div class="space-y-8 flex-1">
                     <div>
-                        <div class="flex justify-between text-[10px] font-black text-slate-500 mb-3 uppercase tracking-widest"><span>Strategische Akquise</span><span>15 / 20</span></div>
-                        <div class="w-full h-3 bg-black/80 rounded-full overflow-hidden p-[1px] border border-white/5"><div class="h-full bg-gradient-to-r from-rose-600 to-pink-500 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.4)]" style="width: 75%"></div></div>
+                        <div class="flex justify-between text-[10px] font-black text-slate-500 mb-3 uppercase tracking-widest"><span>Strategische Akquise</span><span id="focus1-val">0 / 0</span></div>
+                        <div class="w-full h-3 bg-black/80 rounded-full overflow-hidden p-[1px] border border-white/5"><div id="focus1-bar" class="h-full bg-gradient-to-r from-rose-600 to-pink-500 rounded-full shadow-[0_0_15px_rgba(244,63,94,0.4)]" style="width: 0%"></div></div>
                     </div>
                     <div>
-                        <div class="flex justify-between text-[10px] font-black text-slate-500 mb-3 uppercase tracking-widest"><span>Partner-Ausbau</span><span>8 / 10</span></div>
-                        <div class="w-full h-3 bg-black/80 rounded-full overflow-hidden p-[1px] border border-white/5"><div class="h-full bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full shadow-[0_0_15px_rgba(45,212,191,0.4)]" style="width: 80%"></div></div>
+                        <div class="flex justify-between text-[10px] font-black text-slate-500 mb-3 uppercase tracking-widest"><span>Partner-Ausbau</span><span id="focus2-val">0 / 0</span></div>
+                        <div class="w-full h-3 bg-black/80 rounded-full overflow-hidden p-[1px] border border-white/5"><div id="focus2-bar" class="h-full bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full shadow-[0_0_15px_rgba(45,212,191,0.4)]" style="width: 0%"></div></div>
                     </div>
                     <div class="pt-8 mt-4 border-t border-white/10">
                         <p class="text-[10px] font-black text-slate-700 uppercase mb-6 tracking-widest">Globaler Zeitplan</p>
                         <div class="relative pl-6 space-y-8 border-l border-white/10 ml-2">
                             <div class="relative">
                                 <div class="absolute -left-[29px] top-1 w-4 h-4 rounded-full bg-teal-500 border-4 border-black shadow-[0_0_15px_rgba(20,184,166,0.6)]"></div>
-                                <div class="text-[10px] font-black text-teal-400 mb-1 uppercase">14:00 MEZ</div>
-                                <div class="font-bold text-white text-sm">Demo: Müller Energy Group</div>
-                            </div>
-                            <div class="relative">
-                                <div class="absolute -left-[29px] top-1 w-4 h-4 rounded-full bg-slate-800 border-4 border-black"></div>
-                                <div class="text-[10px] font-black text-slate-700 mb-1 uppercase">15:30 MEZ</div>
-                                <div class="font-bold text-slate-500 text-sm">Pipeline-Überprüfung APAC</div>
+                                <div class="text-[10px] font-black text-teal-400 mb-1 uppercase">JETZT</div>
+                                <div class="font-bold text-white text-sm">CRM Sync Aktiv</div>
                             </div>
                         </div>
                     </div>
@@ -281,10 +276,9 @@
     <script>
         const WEBHOOK_URL = 'https://n8n.srv1164949.hstgr.cloud/webhook/dashboard-stats';
         
-        // Helper: Erstellt HTML für Pipeline-Items
         function createDealHTML(deal) {
             const isMrr = deal.isMrr;
-            const initials = deal.name.substring(0, 2).toUpperCase();
+            const initials = deal.name ? deal.name.substring(0, 2).toUpperCase() : "??";
             const valueFormatted = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(deal.value);
 
             return `
@@ -312,17 +306,68 @@
         }
 
         async function fetchLiveStats() {
+            // E-MAIL AUS URL LESEN (WICHTIG!)
+            const urlParams = new URLSearchParams(window.location.search);
+            const userEmail = urlParams.get('email');
+
+            if (!userEmail) {
+                console.warn("Keine E-Mail in der URL gefunden.");
+                document.getElementById('user-name').innerText = "KEINE E-MAIL";
+                document.getElementById('user-name').style.color = "#f43f5e"; 
+                document.getElementById('status-text').innerText = "Bitte ?email=... anhängen";
+                return;
+            }
+
+            // Status Update
+            if (document.getElementById('user-name').innerText === "Initialisiere..." || document.getElementById('user-name').innerText === "KEINE E-MAIL") {
+                 document.getElementById('user-name').innerText = userEmail;
+                 document.getElementById('user-name').style.color = "white";
+            }
+            document.getElementById('status-text').innerText = "Sync läuft...";
+
             try {
-                const response = await fetch(WEBHOOK_URL);
+                // Fetch mit E-Mail Parameter
+                const response = await fetch(`${WEBHOOK_URL}?email=${encodeURIComponent(userEmail)}`);
                 if (!response.ok) throw new Error('Network response not ok');
                 const data = await response.json();
                 
-                // KPIs aktualisieren: Smart Animation prüft, ob sich der Wert geändert hat
-                if (data.pipeline) smartAnimate('kpi-pipeline-value', data.pipeline, { prefix: '€ ', isCurrency: true });
-                if (data.mrr) smartAnimate('kpi-passive', data.mrr, { prefix: '€ ', isCurrency: true });
-                if (data.deals) smartAnimate('kpi-units', data.deals);
+                // 1. Name aktualisieren
+                if (data.salespersonName && data.salespersonName !== "Unbekannter Agent") {
+                    const fullName = data.salespersonName.trim();
+                    const names = fullName.split(" ");
+                    const firstName = names[0];
+                    const formattedName = names.length > 1 
+                        ? `${firstName} ${names[names.length - 1].charAt(0).toUpperCase()}.`
+                        : firstName;
 
-                // Liste Rendern (immer updaten, falls neue Deals)
+                    document.getElementById('user-name').innerText = formattedName;
+                    document.getElementById('status-text').innerText = "Online";
+                }
+
+                // 2. KPIs aktualisieren
+                if (data.pipeline !== undefined) smartAnimate('kpi-pipeline-value', data.pipeline, { prefix: '€ ', isCurrency: true });
+                if (data.mrr !== undefined) smartAnimate('kpi-passive', data.mrr, { prefix: '€ ', isCurrency: true });
+                if (data.deals !== undefined) smartAnimate('kpi-units', data.deals);
+                
+                // Nächste Auszahlung (Payout Days)
+                if (data.payoutDays !== undefined) smartAnimate('kpi-payout', data.payoutDays);
+
+                // 3. Ziel-Ring (Target)
+                if (data.targetPercent !== undefined) {
+                    smartAnimate('kpi-target', data.targetPercent);
+                    setTimeout(() => { document.getElementById('target-progress').style.width = Math.min(data.targetPercent, 100) + '%'; }, 100);
+                }
+                if (data.targetCurrent) document.getElementById('target-current').innerText = "Aktuell: " + formatCurrency(data.targetCurrent);
+                if (data.targetTotal) document.getElementById('target-total').innerText = "Ziel: " + formatCurrency(data.targetTotal);
+
+                // 4. Fokus-Bars (Falls n8n Daten sendet, sonst Default)
+                if (data.focus1) {
+                    document.getElementById('focus1-val').innerText = `${data.focus1.current} / ${data.focus1.target}`;
+                    const pct1 = Math.min((data.focus1.current / data.focus1.target * 100), 100);
+                    document.getElementById('focus1-bar').style.width = pct1 + "%";
+                }
+
+                // 5. Liste Rendern
                 const container = document.getElementById('pipeline-container');
                 if (data.recentDeals && Array.isArray(data.recentDeals)) {
                     container.innerHTML = ''; 
@@ -335,6 +380,7 @@
 
             } catch (error) {
                 console.error("Live Daten Fehler:", error);
+                document.getElementById('status-text').innerText = "Verbindungsfehler";
                 const container = document.getElementById('pipeline-container');
                 if(container.children.length <= 1) {
                    container.innerHTML = '<div class="text-center text-slate-500 text-xs py-10 font-bold uppercase tracking-widest">Warte auf Satelliten-Sync...</div>';
@@ -342,16 +388,11 @@
             }
         }
 
-        // Neue Funktion: Prüft aktuellen Wert und animiert nur bei Änderung
         function smartAnimate(id, endValue, options = {}) {
             const obj = document.getElementById(id);
             if (!obj) return;
-
-            // Aktuellen Wert aus dem Text parsen (alles außer Zahlen entfernen)
             const currentText = obj.innerText.replace(/\D/g, ''); 
             const startValue = parseInt(currentText) || 0;
-
-            // Nur animieren, wenn sich der Wert tatsächlich geändert hat
             if (startValue !== endValue) {
                 animateValue(obj, startValue, endValue, 2000, options);
             }
@@ -362,9 +403,7 @@
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                // Easing (easeOutQuad) für weichere Animation bei Updates
                 const easeProgress = 1 - (1 - progress) * (1 - progress); 
-                
                 const current = easeProgress * (end - start) + start;
                 
                 let value = current;
@@ -380,13 +419,12 @@
             window.requestAnimationFrame(step);
         }
 
-        window.onload = () => {
-            // Statische Animationen (laufen immer einmal beim Laden der Seite)
-            animateValue(document.getElementById('kpi-target'), 0, 82, 2000);
-            setTimeout(() => { document.getElementById('target-progress').style.width = '82%'; }, 100);
-            animateValue(document.getElementById('kpi-payout'), 0, 3, 1500);
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(val);
+        }
 
-            // Map
+        window.onload = () => {
+            // Map Init
             const map = L.map('map', { zoomControl: false }).setView([51.1657, 10.4515], 6); 
             L.control.zoom({ position: 'topright' }).addTo(map);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' }).addTo(map);
@@ -402,12 +440,11 @@
                 let radius = loc.type === 'hot' ? 14 : 10;
                 const circle = L.circleMarker([loc.lat, loc.lng], { color: color, fillColor: color, fillOpacity: 0.8, radius: radius, weight: 2 }).addTo(map);
                 circle.bindPopup(`<div style="font-family: 'Plus Jakarta Sans', sans-serif;"><div style="font-size: 8px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px;">${loc.city}</div><div style="font-weight: 900; font-size: 14px; color: #fff;">${loc.name}</div><div style="margin-top: 10px; color: #2dd4bf; font-weight: 800; font-size: 12px;">Wert: ${loc.value}</div></div>`);
-                circle.on('mouseover', function (e) { this.openPopup(); });
             });
 
-            // Live Daten Fetch Starten
+            // Start Fetch
             fetchLiveStats();
-            setInterval(fetchLiveStats, 10000);
+            setInterval(fetchLiveStats, 10000); 
         };
     </script>
 </body>
