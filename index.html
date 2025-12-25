@@ -230,7 +230,7 @@
                 <div class="flex items-center gap-3 pl-4 border-l border-white/10">
                     <div class="text-right hidden sm:block">
                         <div id="user-name" class="text-xs font-bold text-white uppercase tracking-tighter">Initialisiere...</div>
-                        <div id="status-text" class="text-[9px] text-teal-400 font-bold uppercase tracking-widest">Warte auf URL...</div>
+                        <div id="status-text" class="text-[9px] text-teal-400 font-bold uppercase tracking-widest">Warte auf Daten...</div>
                     </div>
                     <!-- Minimalist Professional User Icon -->
                     <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center border border-white/10 cursor-pointer hover:border-teal-500/50 transition-all shadow-2xl group overflow-hidden">
@@ -496,24 +496,31 @@
     
     <script>
         const WEBHOOK_URL = 'https://n8n.srv1164949.hstgr.cloud/webhook/dashboard-stats';
+        
+        // HIER DEINE E-MAIL EINTRAGEN (Falls keine URL-Parameter genutzt werden)
+        const DEFAULT_EMAIL = ""; 
 
         // MAPPING LOGIC: Webhook Data -> High-End UI
         async function fetchDashboardData() {
-            // 1. E-MAIL AUS URL HOLEN
+            // 1. E-MAIL BESTIMMEN (Priorität: URL > Standard-Variable)
             const urlParams = new URLSearchParams(window.location.search);
-            const userEmail = urlParams.get('email');
+            const emailParam = urlParams.get('email');
+            const userEmail = emailParam || DEFAULT_EMAIL;
 
-            // Sicherheits-Abbruch, wenn keine Mail da ist
+            // Sicherheits-Abbruch nur, wenn BEIDES fehlt
             if (!userEmail) {
-                console.error("STOP: Keine E-Mail in der URL gefunden.");
-                document.getElementById('user-name').innerText = "FEHLER: KEINE E-MAIL";
+                console.warn("Warte auf E-Mail...");
+                document.getElementById('user-name').innerText = "KEINE E-MAIL";
                 document.getElementById('user-name').style.color = "#f43f5e"; // Rot
-                document.getElementById('status-text').innerText = "Bitte URL prüfen (?email=...)";
+                document.getElementById('status-text').innerText = "Bitte URL prüfen oder Config setzen";
                 return;
             }
 
             // Status Update
-            document.getElementById('user-name').innerText = userEmail;
+            if (document.getElementById('user-name').innerText === "Initialisiere..." || document.getElementById('user-name').innerText === "KEINE E-MAIL") {
+                 document.getElementById('user-name').innerText = userEmail;
+                 document.getElementById('user-name').style.color = "white";
+            }
             document.getElementById('status-text').innerText = "Sync läuft...";
 
             try {
@@ -588,7 +595,6 @@
                     const pct1 = Math.min((data.focus1.current / data.focus1.target * 100), 100);
                     document.getElementById('focus1-bar').style.width = pct1 + "%";
                 }
-                // Optional second focus bar if data exists, otherwise static/default
                 if (data.focus2) {
                      document.getElementById('focus2-val').innerText = `${data.focus2.current} / ${data.focus2.target}`;
                      const pct2 = Math.min((data.focus2.current / data.focus2.target * 100), 100);
